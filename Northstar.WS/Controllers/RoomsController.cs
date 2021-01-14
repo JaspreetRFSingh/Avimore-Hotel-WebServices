@@ -14,7 +14,7 @@ namespace Northstar.WS.Controllers
         [HttpGet(Name = nameof(GetRooms))]
         public IActionResult GetRooms()
         {
-            return Ok(200);
+            throw new NotImplementedException();
         }
     }
 }
