@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Hosting;
 using Northstar.WS.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Northstar.WS.Filters
 {
@@ -14,9 +11,9 @@ namespace Northstar.WS.Filters
     public class JsonExceptionFilter : IExceptionFilter
     {
 
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
 
-        public JsonExceptionFilter(IHostingEnvironment env)
+        public JsonExceptionFilter(IWebHostEnvironment env)
         {
             _env = env;
         }

@@ -31,6 +31,7 @@ namespace Northstar.WS
                 options =>
                 {
                     options.Filters.Add<JsonExceptionFilter>();
+                    options.Filters.Add<RequireHttpsOrCloseFilter>();
                 }
                 );
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -42,6 +43,11 @@ namespace Northstar.WS
                 options.ReportApiVersions = true; //to get API version info on the responses
                 options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
             });
+            services.AddCors(options =>
+            {
+                //options.AddPolicy("AllowMyApp", policy => policy.WithOrigins("https://example.com"));
+                options.AddPolicy("AllowMyApp", policy => policy.AllowAnyOrigin()); //allows any origin, recommended ONLY during prouction
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +58,13 @@ namespace Northstar.WS
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            else
+            {
+                app.UseHsts();
+            }
+            //app.UseHttpsRedirection();
+
+            app.UseCors("AllowMyApp");
 
             app.UseRouting();
 
