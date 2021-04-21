@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Northstar.WS.Models
 {
@@ -12,6 +9,8 @@ namespace Northstar.WS.Models
         public string Email { get; set; }
         public string Website {get; set;}
         public Address Location { get; set; }
+        public List<Room> Rooms { get; set; }
+
     }
 
     public class Address
