@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Northstar.WS.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,9 +24,11 @@ namespace Northstar.WS.Services
         {
             var hotels = _context.Hotels.ToList();
             int count = hotels.Count;
+            IAddressService defaultAddressService = new DefaultAddressService(_context);
+            
             for (int i = 0; i < count; i++)
             {
-
+                hotels[i].Location = defaultAddressService.GetAddress(hotels[i].LocationId);
             }
             return hotels;
         }
