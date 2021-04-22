@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Northstar.WS.Filters;
+using Northstar.WS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +35,10 @@ namespace Northstar.WS
                     options.Filters.Add<JsonExceptionFilter>();
                     options.Filters.Add<RequireHttpsOrCloseFilter>();
                 }
-                );
+            );
+            services.AddDbContext<Avimore_09Context>(
+        options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddApiVersioning(options =>
             {
