@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -12,6 +13,7 @@ namespace Northstar.WS.Models
         public string City { get; set; }
         public string Country { get; set; }
 
+        [JsonIgnore]
         public virtual Hotel Hotel { get; set; }
     }
 }
