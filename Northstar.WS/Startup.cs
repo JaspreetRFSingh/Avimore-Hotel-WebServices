@@ -1,20 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Northstar.WS.Filters;
 using Northstar.WS.Models;
 using Northstar.WS.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Northstar.WS
 {
@@ -40,6 +34,7 @@ namespace Northstar.WS
 
             //not a singleton service. Will be created everytime the room controller is invoked
             services.AddScoped<IRoomService, DefaultRoomService>();
+            services.AddScoped<IHotelService, HotelService>();
 
             services.AddDbContext<AvimoreDBContext>(
         options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));

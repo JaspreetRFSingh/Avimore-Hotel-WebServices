@@ -15,7 +15,6 @@ namespace Northstar.WS.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
-        private readonly Room _room;
         private readonly IRoomService _roomService;
 
         public RoomsController(IRoomService roomService)
