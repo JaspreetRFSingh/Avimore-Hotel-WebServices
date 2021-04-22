@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Northstar.WS.Models;
 using System;
@@ -28,5 +29,19 @@ namespace Northstar.WS.Controllers
         {
             return _context.Rooms.OrderBy(r => r.Name).ToList();
         }
+
+        [HttpGet("{roomid}", Name = nameof(GetRoomById))]
+        [ProducesResponseType(404)]
+        [ResponseCache(Duration = 60)]
+        public async Task<ActionResult<Room>> GetRoomById(short roomId)
+        {
+            var room = await _context.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomId);
+            if(room == null)
+            {
+                return NotFound();
+            }
+            return room;
+        }
+
     }
 }
