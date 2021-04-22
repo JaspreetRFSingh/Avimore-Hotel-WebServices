@@ -1,22 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
 
 namespace Northstar.WS.Models
 {
-    public class Hotel : Resource
+    public partial class Hotel
     {
         public string Title { get; set; }
         public string Tagline { get; set; }
         public string Email { get; set; }
-        public string Website {get; set;}
-        public Address Location { get; set; }
-        public List<Room> Rooms { get; set; }
+        public string Website { get; set; }
+        public short LocationId { get; set; }
+        public int HotelId { get; set; }
 
-    }
-
-    public class Address
-    {
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+        public virtual FacilityAddress Location { get; set; }
     }
 }

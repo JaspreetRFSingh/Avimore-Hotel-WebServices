@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+#nullable disable
 
 namespace Northstar.WS.Models
 {
-    public class Room : Resource
+    public partial class Room
     {
+        public short RoomId { get; set; }
         public string Name { get; set; }
-        public decimal Rate { get; set; }
+        public float Rate { get; set; }
     }
 }
