@@ -9,9 +9,9 @@ namespace Northstar.WS.Services
 {
     public class DefaultRoomService : IRoomService
     {
-        private readonly Avimore_09Context _context;
+        private readonly AvimoreDBContext _context;
 
-        public DefaultRoomService(Avimore_09Context context)
+        public DefaultRoomService(AvimoreDBContext context)
         {
             _context = context;
         }

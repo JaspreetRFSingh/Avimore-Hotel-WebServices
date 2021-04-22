@@ -41,7 +41,7 @@ namespace Northstar.WS
             //not a singleton service. Will be created everytime the room controller is invoked
             services.AddScoped<IRoomService, DefaultRoomService>();
 
-            services.AddDbContext<Avimore_09Context>(
+            services.AddDbContext<AvimoreDBContext>(
         options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
             services.AddRouting(options => options.LowercaseUrls = true);

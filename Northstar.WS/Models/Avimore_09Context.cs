@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Northstar.WS.Models
 {
-    public partial class Avimore_09Context : DbContext
+    public partial class AvimoreDBContext : DbContext
     {
-        public Avimore_09Context()
+        public AvimoreDBContext()
         {
         }
 
-        public Avimore_09Context(DbContextOptions<Avimore_09Context> options)
+        public AvimoreDBContext(DbContextOptions<AvimoreDBContext> options)
             : base(options)
         {
         }
