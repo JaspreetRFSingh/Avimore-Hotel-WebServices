@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Northstar.WS.Models;
+using Northstar.WS.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,27 +16,27 @@ namespace Northstar.WS.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly Room _room;
-        private readonly Avimore_09Context _context;
+        private readonly IRoomService _roomService;
 
-        public RoomsController(IOptions<Room> roomInfoWrapper, Avimore_09Context context)
+        public RoomsController(IRoomService roomService)
         {
-            _room = roomInfoWrapper.Value;
-            this._context = context;
+            _roomService = roomService;
         }
 
         [HttpGet(Name = nameof(GetRooms))]
         [ProducesResponseType(200)]
         public ActionResult<List<Room>> GetRooms()
         {
-            return _context.Rooms.OrderBy(r => r.Name).ToList();
+            return _roomService.GetRooms();
         }
 
         [HttpGet("{roomid}", Name = nameof(GetRoomById))]
+        [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ResponseCache(Duration = 60)]
         public async Task<ActionResult<Room>> GetRoomById(short roomId)
         {
-            var room = await _context.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomId);
+            var room = await _roomService.GetRoomAsync(roomId);
             if(room == null)
             {
                 return NotFound();

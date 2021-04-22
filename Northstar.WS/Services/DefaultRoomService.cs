@@ -1,4 +1,5 @@
-﻿using Northstar.WS.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Northstar.WS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,26 @@ namespace Northstar.WS.Services
 {
     public class DefaultRoomService : IRoomService
     {
-        //private readonly _context;
+        private readonly Avimore_09Context _context;
 
-        public DefaultRoomService()
+        public DefaultRoomService(Avimore_09Context context)
         {
-
+            _context = context;
         }
 
-        public Task<Room> GetRoomAsync(Guid id)
+        public async Task<Room> GetRoomAsync(short roomId)
         {
-            throw new NotImplementedException();
+            var room = await _context.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomId);
+            if (room == null)
+            {
+                return null;
+            }
+            return room;
+        }
+
+        List<Room> IRoomService.GetRooms()
+        {
+            return _context.Rooms.OrderBy(r => r.Name).ToList();
         }
     }
 }

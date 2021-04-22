@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Northstar.WS.Filters;
 using Northstar.WS.Models;
+using Northstar.WS.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,10 @@ namespace Northstar.WS
                     options.Filters.Add<RequireHttpsOrCloseFilter>();
                 }
             );
+
+            //not a singleton service. Will be created everytime the room controller is invoked
+            services.AddScoped<IRoomService, DefaultRoomService>();
+
             services.AddDbContext<Avimore_09Context>(
         options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 

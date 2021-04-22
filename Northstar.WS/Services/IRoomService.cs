@@ -8,6 +8,7 @@ namespace Northstar.WS.Services
 {
     public interface IRoomService
     {
-        Task<Room> GetRoomAsync(Guid id);
+        Task<Room> GetRoomAsync(short roomId);
+        List<Room> GetRooms();
     }
 }
