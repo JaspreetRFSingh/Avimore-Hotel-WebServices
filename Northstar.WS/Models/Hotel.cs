@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-#nullable disable
-
-namespace Northstar.WS.Models
+﻿namespace Northstar.WS.Models
 {
     public partial class Hotel
     {

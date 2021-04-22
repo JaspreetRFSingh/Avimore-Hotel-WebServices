@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Northstar.WS.Models
+﻿namespace Northstar.WS.Models
 {
     //Generic error class to represent a model
     public class ApiError

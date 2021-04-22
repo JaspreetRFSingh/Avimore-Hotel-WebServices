@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Northstar.WS.Models;
-using System;
-using System.Collections.Generic;
+﻿using Northstar.WS.Models;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Northstar.WS.Services
 {
