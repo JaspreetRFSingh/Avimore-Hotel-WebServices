@@ -13,7 +13,7 @@ INSERT INTO [dbo].[Hotel]
            ,[Email]
            ,[LocationId])
      VALUES
-           ('Tuli hospitality Services', 'Service  First', 'tulih@gmail.com', 3)
+           ('XYZ hospitality Services', 'Service  First', 'xadwe@gmail.com', 3)
 
 Insert into Hotel_Room (HotelId, RoomId) values (4,4)
 
