@@ -1,10 +1,14 @@
-﻿namespace Northstar.WS.Models
+﻿using Newtonsoft.Json;
+
+namespace Northstar.WS.Models
 {
     public partial class Hotel
     {
         public string Title { get; set; }
         public string Tagline { get; set; }
         public string Email { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Website { get; set; }
         public short LocationId { get; set; }
         public int HotelId { get; set; }

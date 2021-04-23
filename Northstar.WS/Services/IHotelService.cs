@@ -8,5 +8,6 @@ namespace Northstar.WS.Services
     {
         Task<Hotel> GetHotelAsync(int hotelId);
         List<Hotel> GetHotels();
+        Task<List<Room>> GetRoomsForHotelAsync(int hotelId);
     }
 }

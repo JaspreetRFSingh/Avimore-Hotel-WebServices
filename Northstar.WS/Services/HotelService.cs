@@ -32,5 +32,18 @@ namespace Northstar.WS.Services
             }
             return hotels;
         }
+
+        async Task<List<Room>> IHotelService.GetRoomsForHotelAsync(int hotelId)
+        {
+            var hotelRooms = await  _context.HotelRooms.Where(hr => hr.HotelId == hotelId).ToListAsync();
+            List<Room> roomsForGivenHotel = new List<Room>();
+            int count = hotelRooms.Count;
+            for(int i=0;i<count; i++)
+            {
+                var currentRoom = await _context.Rooms.FirstOrDefaultAsync( r=> r.RoomId == hotelRooms[i].RoomId);
+                roomsForGivenHotel.Add(currentRoom);
+            }
+            return roomsForGivenHotel;
+        }
     }
 }

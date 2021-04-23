@@ -2,6 +2,7 @@
 using Northstar.WS.Models;
 using Northstar.WS.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Northstar.WS.Controllers
 {
@@ -16,7 +17,6 @@ namespace Northstar.WS.Controllers
             _hotelService = hotelService;
         }
 
-        // GET: api/<HotelsController>
         [HttpGet(Name = nameof(GetHotels))]
         [ProducesResponseType(200)]
         public ActionResult<List<Hotel>> GetHotels()
@@ -24,11 +24,17 @@ namespace Northstar.WS.Controllers
             return _hotelService.GetHotels();
         }
 
-        // GET api/<HotelsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{hotelId}/rooms", Name = nameof(GetRoomsForHotel))]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<List<Room>>> GetRoomsForHotel(int hotelId)
         {
-            return "value";
+            return await _hotelService.GetRoomsForHotelAsync(hotelId);
+        }
+
+        [HttpGet("{hotelId}", Name = nameof(GetHotelById))]
+        public async Task<ActionResult<Hotel>> GetHotelById(int hotelId)
+        {
+            return await _hotelService.GetHotelAsync(hotelId);
         }
 
         // POST api/<HotelsController>
