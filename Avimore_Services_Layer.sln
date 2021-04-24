@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northstar.WS", "Northstar.WS\Northstar.WS.csproj", "{DE04B842-B87D-40D2-8A7C-73D862C1558B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northstar.WS", "Northstar.WS\Northstar.WS.csproj", "{DE04B842-B87D-40D2-8A7C-73D862C1558B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northstar.WS.Test", "Northstar.WS.Test\Northstar.WS.Test.csproj", "{FCAE5D52-DA79-4CC5-A7ED-3E90678BE7CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DE04B842-B87D-40D2-8A7C-73D862C1558B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE04B842-B87D-40D2-8A7C-73D862C1558B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE04B842-B87D-40D2-8A7C-73D862C1558B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCAE5D52-DA79-4CC5-A7ED-3E90678BE7CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCAE5D52-DA79-4CC5-A7ED-3E90678BE7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCAE5D52-DA79-4CC5-A7ED-3E90678BE7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCAE5D52-DA79-4CC5-A7ED-3E90678BE7CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
