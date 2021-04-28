@@ -32,6 +32,12 @@ namespace Northstar.WS.Services
             return room;
         }
 
+        public void InsertRoom(Room room)
+        {
+            _context.Rooms.Add(room);
+            _context.SaveChanges();
+        }
+
         List<Room> IRoomService.GetRooms()
         {
             return _context.Rooms.OrderBy(r => r.Name).ToList();

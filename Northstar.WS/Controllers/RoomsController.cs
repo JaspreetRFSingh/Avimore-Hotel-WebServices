@@ -46,5 +46,13 @@ namespace Northstar.WS.Controllers
             _roomService.DeleteRoom(roomId);
         }
 
+        [HttpPost(Name = nameof(AddRoom))]
+        [ProducesResponseType(200)]
+        [ResponseCache(Duration = 60)]
+        public void AddRoom([FromBody] Room room)
+        {
+            _roomService.InsertRoom(room);
+        }
+
     }
 }
