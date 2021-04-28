@@ -15,6 +15,13 @@ namespace Northstar.WS.Services
             _context = context;
         }
 
+        public void DeleteRoom(short roomId)
+        {
+            Room roomToBeDeleted = GetRoomAsync(roomId).Result;
+            _context.Rooms.Remove(roomToBeDeleted);
+            _context.SaveChanges();
+        }
+
         public async Task<Room> GetRoomAsync(short roomId)
         {
             var room = await _context.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomId);

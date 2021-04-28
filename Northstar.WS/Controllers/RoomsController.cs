@@ -38,5 +38,13 @@ namespace Northstar.WS.Controllers
             return room;
         }
 
+        [HttpDelete("{roomId}", Name = nameof(DeleteRoom))]
+        [ProducesResponseType(200)]
+        [ResponseCache(Duration = 60)]
+        public void DeleteRoom(short roomId)
+        {
+            _roomService.DeleteRoom(roomId);
+        }
+
     }
 }

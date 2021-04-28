@@ -8,5 +8,6 @@ namespace Northstar.WS.Services
     {
         Task<Room> GetRoomAsync(short roomId);
         List<Room> GetRooms();
+        void DeleteRoom(short roomId);
     }
 }
