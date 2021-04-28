@@ -38,6 +38,14 @@ namespace Northstar.WS.Services
             _context.SaveChanges();
         }
 
+        public void UpdateRoom(Room room)
+        {
+            Room roomToBeUpdated = _context.Rooms.FirstOrDefault(r => r.RoomId == room.RoomId);
+            roomToBeUpdated.Name = room.Name;
+            roomToBeUpdated.Rate = room.Rate;
+            _context.SaveChanges();
+        }
+
         List<Room> IRoomService.GetRooms()
         {
             return _context.Rooms.OrderBy(r => r.Name).ToList();

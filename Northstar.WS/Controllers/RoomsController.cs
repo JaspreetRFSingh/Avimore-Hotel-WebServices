@@ -54,5 +54,13 @@ namespace Northstar.WS.Controllers
             _roomService.InsertRoom(room);
         }
 
+        [HttpPut(Name = nameof(UpdateRoom))]
+        [ProducesResponseType(200)]
+        [ResponseCache(Duration = 60)]
+        public void UpdateRoom([FromBody] Room room)
+        {
+            _roomService.UpdateRoom(room);
+        }
+
     }
 }
