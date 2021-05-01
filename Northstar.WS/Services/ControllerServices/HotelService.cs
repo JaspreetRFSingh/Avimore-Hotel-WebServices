@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Northstar.WS.Services
 {
-    public class HotelService : IHotelService
+    public class HotelService : BaseService, IHotelService
     {
         private readonly AvimoreDBContext _context;
 
@@ -24,7 +24,7 @@ namespace Northstar.WS.Services
         {
             var hotels = _context.Hotels.ToList();
             int count = hotels.Count;
-            IAddressService defaultAddressService = new DefaultAddressService(_context);
+            IAddressService defaultAddressService = new AddressService(_context);
             
             for (int i = 0; i < count; i++)
             {
