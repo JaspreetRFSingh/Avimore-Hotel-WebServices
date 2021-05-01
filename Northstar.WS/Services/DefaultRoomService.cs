@@ -10,7 +10,6 @@ namespace Northstar.WS.Services
     public class DefaultRoomService : BaseService, IRoomService
     {
         private readonly AvimoreDBContext _context;
-        private readonly ApiError _apiError = new ApiError();
         
         public DefaultRoomService(AvimoreDBContext context)
         {

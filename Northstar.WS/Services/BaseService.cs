@@ -12,7 +12,7 @@ namespace Northstar.WS.Services
             _apiError.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName);
         }
 
-        public string CreateCustomErrorMessage(int code, string resourceId = "", string resourceName = "")
+        private string CreateCustomErrorMessage(int code, string resourceId = "", string resourceName = "")
         {
             string message = CommonConstants.CustomErrorResponses[code];
             if (message.Contains(CommonConstants.ResourceIdPlaceHolder))
