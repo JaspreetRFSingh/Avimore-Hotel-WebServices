@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Northstar.WS.Services
 {
-    public class DefaultRoomService : IRoomService
+    public class DefaultRoomService : BaseService, IRoomService
     {
         private readonly AvimoreDBContext _context;
         private readonly ApiError _apiError = new ApiError();
-
+        
         public DefaultRoomService(AvimoreDBContext context)
         {
             _context = context;
@@ -58,34 +58,8 @@ namespace Northstar.WS.Services
             _context.Rooms.Remove(roomToBeDeleted);
             _context.SaveChanges();
         }
-
         #endregion
 
-        #region Other implementations
-        public void SetErrorResponse(int errorCode, string resourceId, string resourceName)
-        {
-            _apiError.code = errorCode;
-            _apiError.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName);
-        }
 
-        public string CreateCustomErrorMessage(int code, string resourceId = "", string resourceName = "")
-        {
-            string message = CommonConstants.CustomErrorResponses[code];
-            if (message.Contains(CommonConstants.ResourceIdPlaceHolder))
-            {
-                message = message.Replace(CommonConstants.ResourceIdPlaceHolder, resourceId);
-            }
-            if (message.Contains(CommonConstants.ResourcePlaceHolder))
-            {
-                message = message.Replace(CommonConstants.ResourcePlaceHolder, resourceName);
-            }
-            return message;
-        }
-
-        ApiError IDefaultService.GetApiErrorResponse()
-        {
-            return _apiError;
-        }
-        #endregion
     }
 }
