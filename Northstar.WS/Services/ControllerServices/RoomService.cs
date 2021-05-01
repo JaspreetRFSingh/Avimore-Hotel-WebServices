@@ -89,9 +89,22 @@ namespace Northstar.WS.Services
                 SetErrorResponse(301, roomId.ToString(), CommonConstants.ResourceNameForRoomController);
                 return false;
             }
-            _context.Rooms.Remove(roomToBeDeleted);
-            _context.SaveChanges();
-            return true;
+            try
+            {
+                _context.Rooms.Remove(roomToBeDeleted);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbUpdateException e)
+            {
+                SetErrorResponse(501, e.InnerException.Message);
+                return false;
+            }
+            catch (Exception)
+            {
+                SetErrorResponse(102, resourceName: CommonConstants.ResourceNameForRoomController);
+                return false;
+            }
         }
         #endregion
 
