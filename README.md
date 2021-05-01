@@ -11,12 +11,12 @@ Basic ASP.NET Core Project for the service layer of the hotel. </br>
   * Utility - Utility Classes common across various projects
 * ### *NorthStar.WS.Test* (Unit Test coverage for NorthStar.WS)
 
-### TechStack
+## TechStack
 * C# .NET
 * ASP.NET
 * Entity Framework
 
-### Tools used
+## Tools used
 * Visual Studio IDE
 * SQL Server
 * Postman
