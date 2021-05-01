@@ -20,6 +20,10 @@ namespace Northstar.WS.Services
         #region CRUD Operations
         List<Room> IRoomService.GetRooms()
         {
+            if (_context.Rooms.Count() == 0)
+            {
+                SetErrorResponse(300, string.Empty);
+            }
             return _context.Rooms.OrderBy(r => r.Name).ToList();
         }
 
@@ -40,6 +44,7 @@ namespace Northstar.WS.Services
             {
                 _context.Rooms.Add(room);
                 _context.SaveChanges();
+                SetSuccessResponse(201, CommonConstants.ResourceNameForRoomController, room);
                 return true;
             }
             catch (DbUpdateException)
@@ -67,6 +72,7 @@ namespace Northstar.WS.Services
                 roomToBeUpdated.Name = room.Name;
                 roomToBeUpdated.Rate = room.Rate;
                 _context.SaveChanges();
+                SetSuccessResponse(202, CommonConstants.ResourceNameForRoomController, roomToBeUpdated);
                 return true;
             }
             catch (DbUpdateException)
@@ -93,6 +99,7 @@ namespace Northstar.WS.Services
             {
                 _context.Rooms.Remove(roomToBeDeleted);
                 _context.SaveChanges();
+                SetSuccessResponse(203, CommonConstants.ResourceNameForRoomController, roomToBeDeleted);
                 return true;
             }
             catch (DbUpdateException e)

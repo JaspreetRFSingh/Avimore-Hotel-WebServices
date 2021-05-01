@@ -5,27 +5,51 @@ namespace Northstar.WS.Services
 {
     public class BaseService : IBaseService
     {
-        private readonly ApiError _apiError = new ApiError();
+        private readonly GenericApiResponse _genericApiResponse = new GenericApiResponse();
         public void SetErrorResponse(int errorCode, string resourceId="", string resourceName="", object obj = null)
         {
-            _apiError.code = errorCode;
-            _apiError.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName, obj);
+            _genericApiResponse.Code = errorCode;
+            _genericApiResponse.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName, obj);
         }
 
-        public void SetErrorResponse(int errorCode, string message)
+        public void SetErrorResponse(int errorCode, string message="")
         {
-            _apiError.code = errorCode;
-            _apiError.Message = message;
+            _genericApiResponse.Code = errorCode;
+            if (string.IsNullOrEmpty(message))
+            {
+                _genericApiResponse.Message = CreateCustomErrorMessage(errorCode, string.Empty, string.Empty, null);
+            }
+            else
+            {
+                _genericApiResponse.Message = message;
+            }
         }
 
-        public ApiError GetApiErrorResponse()
+        public void SetSuccessResponse(int successCode, string resourceName = "", object obj=null)
         {
-            return _apiError;
+            _genericApiResponse.Code = successCode;
+            _genericApiResponse.Message = CreateCustomSuccessMessage(successCode, resourceName);
+            _genericApiResponse.ResponseObject = obj;
+        }
+
+        public GenericApiResponse GetGenericApiResponse()
+        {
+            return _genericApiResponse;
+        }
+
+        private string CreateCustomSuccessMessage(int code, string resourceName)
+        {
+            string message = CommonConstants.CustomGenericServiceResponses[code];
+            if (message.Contains(CommonConstants.ResourcePlaceHolder))
+            {
+                message = message.Replace(CommonConstants.ResourcePlaceHolder, resourceName);
+            }
+            return message;
         }
 
         private string CreateCustomErrorMessage(int code, string resourceId, string resourceName, object obj)
         {
-            string message = CommonConstants.CustomErrorResponses[code];
+            string message = CommonConstants.CustomGenericServiceResponses[code];
             if (message.Contains(CommonConstants.ResourceIdPlaceHolder))
             {
                 message = message.Replace(CommonConstants.ResourceIdPlaceHolder, resourceId);

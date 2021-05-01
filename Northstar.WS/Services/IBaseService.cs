@@ -5,6 +5,7 @@ namespace Northstar.WS.Services
     public interface IBaseService: IErrorResponse
     {
         public void SetErrorResponse(int errorCode, string resourceId = "", string resourceName = "", object obj = null);
-        public void SetErrorResponse(int errorCode, string message);
+        public void SetErrorResponse(int errorCode, string message="");
+        public void SetSuccessResponse(int successCode, string message, object obj);
     }
 }

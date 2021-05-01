@@ -4,6 +4,6 @@ namespace Northstar.WS.Services
 {
     public interface IErrorResponse
     {
-        public ApiError GetApiErrorResponse();
+        public GenericApiResponse GetGenericApiResponse();
     }
 }
