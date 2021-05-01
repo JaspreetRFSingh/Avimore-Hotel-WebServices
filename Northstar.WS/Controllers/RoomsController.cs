@@ -33,7 +33,7 @@ namespace Northstar.WS.Controllers
             var room = await _roomService.GetRoomAsync(roomId);
             if(room == null)
             {
-                return NotFound();
+                return NotFound(_roomService.PopulateErrorResponse(400,"Room not found with the given id: " + roomId));
             }
             return room;
         }

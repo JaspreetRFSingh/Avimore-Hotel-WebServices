@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Northstar.WS.Services
 {
-    public interface IRoomService
+    public interface IRoomService: IDefaultService
     {
         Task<Room> GetRoomAsync(short roomId);
         List<Room> GetRooms();
