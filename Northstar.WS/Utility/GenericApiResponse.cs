@@ -1,7 +1,7 @@
 ﻿namespace Northstar.WS.Models
 {
-    //Generic error class to represent a model
-    public class ApiError
+    //Generic model class to represent an error/success response
+    public class GenericApiResponse
     {
         public string Message
         {
