@@ -20,7 +20,7 @@ namespace Northstar.WS.Filters
 
         public void OnException(ExceptionContext context)
         {
-            var error = new ApiError();
+            var error = new GenericApiResponse();
             if (_env.IsDevelopment())
             {
                 error.Message = context.Exception.Message;
@@ -29,7 +29,7 @@ namespace Northstar.WS.Filters
             {
                 error.Message = "A simple error occured";
             }
-            error.code = 301;
+            error.Code = 301;
             context.Result = new ObjectResult(error)
             {
                 StatusCode = 500

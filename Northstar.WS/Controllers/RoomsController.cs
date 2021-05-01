@@ -33,7 +33,7 @@ namespace Northstar.WS.Controllers
             var room = await _roomService.GetRoomByIdAsync(roomId);
             if(room == null)
             {
-                return NotFound(_roomService.GetApiErrorResponse());
+                return NotFound(_roomService.GetGenericApiResponse());
             }
             return room;
         }
@@ -45,9 +45,9 @@ namespace Northstar.WS.Controllers
         {
             if (!_roomService.DeleteRoom(roomId))
             {
-                return BadRequest(_roomService.GetApiErrorResponse());
+                return BadRequest(_roomService.GetGenericApiResponse());
             }
-            return Ok();
+            return Ok(_roomService.GetGenericApiResponse());
         }
 
         [HttpPost(Name = nameof(AddRoom))]
@@ -57,9 +57,9 @@ namespace Northstar.WS.Controllers
         {
             if (!_roomService.InsertRoom(room))
             {
-                return BadRequest(_roomService.GetApiErrorResponse());
+                return BadRequest(_roomService.GetGenericApiResponse());
             }
-            return Ok();
+            return Ok(_roomService.GetGenericApiResponse());
         }
 
         [HttpPut(Name = nameof(UpdateRoom))]
@@ -69,9 +69,9 @@ namespace Northstar.WS.Controllers
         {
             if (!_roomService.UpdateRoom(room))
             {
-                return BadRequest(_roomService.GetApiErrorResponse());
+                return BadRequest(_roomService.GetGenericApiResponse());
             }
-            return Ok();
+            return Ok(_roomService.GetGenericApiResponse());
         }
 
     }
