@@ -54,26 +54,46 @@ namespace Northstar.WS.Services
             }
         }
 
-        public void UpdateRoom(Room room)
+        public bool UpdateRoom(Room room)
         {
             Room roomToBeUpdated = _context.Rooms.FirstOrDefault(r => r.RoomId == room.RoomId);
             if (roomToBeUpdated == null)
             {
-                return;
+                SetErrorResponse(301, room.RoomId.ToString(), CommonConstants.ResourceNameForRoomController);
+                return false;
             }
-            roomToBeUpdated.Name = room.Name;
-            roomToBeUpdated.Rate = room.Rate;
-            _context.SaveChanges();
+            try
+            {
+                roomToBeUpdated.Name = room.Name;
+                roomToBeUpdated.Rate = room.Rate;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbUpdateException)
+            {
+                SetErrorResponse(303, resourceName: CommonConstants.ResourceNameForRoomController, obj: room);
+                return false;
+            }
+            catch (Exception)
+            {
+                SetErrorResponse(102, resourceName: CommonConstants.ResourceNameForRoomController);
+                return false;
+            }
         }
 
-        public void DeleteRoom(short roomId)
+        public bool DeleteRoom(short roomId)
         {
             Room roomToBeDeleted = GetRoomByIdAsync(roomId).Result;
+            if (roomToBeDeleted == null)
+            {
+                SetErrorResponse(301, roomId.ToString(), CommonConstants.ResourceNameForRoomController);
+                return false;
+            }
             _context.Rooms.Remove(roomToBeDeleted);
             _context.SaveChanges();
+            return true;
         }
         #endregion
-
 
     }
 }

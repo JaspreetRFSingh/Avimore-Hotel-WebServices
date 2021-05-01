@@ -41,9 +41,13 @@ namespace Northstar.WS.Controllers
         [HttpDelete("{roomId}", Name = nameof(DeleteRoom))]
         [ProducesResponseType(200)]
         [ResponseCache(Duration = 60)]
-        public void DeleteRoom(short roomId)
+        public ActionResult DeleteRoom(short roomId)
         {
-            _roomService.DeleteRoom(roomId);
+            if (!_roomService.DeleteRoom(roomId))
+            {
+                BadRequest(_roomService.GetApiErrorResponse());
+            }
+            return Ok();
         }
 
         [HttpPost(Name = nameof(AddRoom))]
@@ -61,9 +65,13 @@ namespace Northstar.WS.Controllers
         [HttpPut(Name = nameof(UpdateRoom))]
         [ProducesResponseType(200)]
         [ResponseCache(Duration = 60)]
-        public void UpdateRoom([FromBody] Room room)
+        public ActionResult UpdateRoom([FromBody] Room room)
         {
-            _roomService.UpdateRoom(room);
+            if (!_roomService.UpdateRoom(room))
+            {
+                BadRequest(_roomService.GetApiErrorResponse());
+            }
+            return Ok();
         }
 
     }

@@ -21,7 +21,8 @@ namespace Northstar.WS.Utility
             {101, "An unknown error occurred while trying to access the resource: <resource>" },
             {102, "An unknown error occurred while trying to modify the resource: <resource>" },
             {301, "<resource> not found with id: <resourceId>"},
-            {302, "Insertion error: Unable to add following <resource>: <jsonToString>" }
+            {302, "Insertion Error! Unable to add following <resource>: <jsonToString>" },
+            {303, "Update Error! Unable to update following <resource>: <jsonToString>" }
         };
     }
 }
