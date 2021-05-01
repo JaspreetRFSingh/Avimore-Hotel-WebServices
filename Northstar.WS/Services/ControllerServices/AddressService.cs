@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace Northstar.WS.Services
 {
-    public class DefaultAddressService : IAddressService
+    public class AddressService : BaseService, IAddressService
     {
         private readonly AvimoreDBContext _context;
-        public DefaultAddressService(AvimoreDBContext context)
+        public AddressService(AvimoreDBContext context)
         {
             _context = context;
         }
