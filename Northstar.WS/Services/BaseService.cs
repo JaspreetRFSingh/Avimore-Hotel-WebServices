@@ -12,6 +12,17 @@ namespace Northstar.WS.Services
             _apiError.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName, obj);
         }
 
+        public void SetErrorResponse(int errorCode, string message)
+        {
+            _apiError.code = errorCode;
+            _apiError.Message = message;
+        }
+
+        public ApiError GetApiErrorResponse()
+        {
+            return _apiError;
+        }
+
         private string CreateCustomErrorMessage(int code, string resourceId, string resourceName, object obj)
         {
             string message = CommonConstants.CustomErrorResponses[code];
@@ -30,9 +41,5 @@ namespace Northstar.WS.Services
             return message;
         }
 
-        public ApiError GetApiErrorResponse()
-        {
-            return _apiError;
-        }
     }
 }

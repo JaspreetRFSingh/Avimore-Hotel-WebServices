@@ -45,7 +45,7 @@ namespace Northstar.WS.Controllers
         {
             if (!_roomService.DeleteRoom(roomId))
             {
-                BadRequest(_roomService.GetApiErrorResponse());
+                return BadRequest(_roomService.GetApiErrorResponse());
             }
             return Ok();
         }
@@ -69,7 +69,7 @@ namespace Northstar.WS.Controllers
         {
             if (!_roomService.UpdateRoom(room))
             {
-                BadRequest(_roomService.GetApiErrorResponse());
+                return BadRequest(_roomService.GetApiErrorResponse());
             }
             return Ok();
         }
