@@ -49,9 +49,13 @@ namespace Northstar.WS.Controllers
         [HttpPost(Name = nameof(AddRoom))]
         [ProducesResponseType(200)]
         [ResponseCache(Duration = 60)]
-        public void AddRoom([FromBody] Room room)
+        public ActionResult AddRoom([FromBody] Room room)
         {
-            _roomService.InsertRoom(room);
+            if (!_roomService.InsertRoom(room))
+            {
+                return BadRequest(_roomService.GetApiErrorResponse());
+            }
+            return Ok();
         }
 
         [HttpPut(Name = nameof(UpdateRoom))]

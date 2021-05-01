@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Northstar.WS.Models;
 using Northstar.WS.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,10 +34,24 @@ namespace Northstar.WS.Services
             return room;
         }
 
-        public void InsertRoom(Room room)
+        public bool InsertRoom(Room room)
         {
-            _context.Rooms.Add(room);
-            _context.SaveChanges();
+            try
+            {
+                _context.Rooms.Add(room);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbUpdateException)
+            {
+                SetErrorResponse(302, resourceName: CommonConstants.ResourceNameForRoomController, obj: room);
+                return false;
+            }
+            catch (Exception)
+            {
+                SetErrorResponse(102, resourceName: CommonConstants.ResourceNameForRoomController);
+                return false;
+            }
         }
 
         public void UpdateRoom(Room room)

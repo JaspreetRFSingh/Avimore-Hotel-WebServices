@@ -9,7 +9,7 @@ namespace Northstar.WS.Services
         Task<Room> GetRoomByIdAsync(short roomId);
         List<Room> GetRooms();
         void DeleteRoom(short roomId);
-        void InsertRoom(Room room);
+        bool InsertRoom(Room room);
         void UpdateRoom(Room room);
     }
 }
