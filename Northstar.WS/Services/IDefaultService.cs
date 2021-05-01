@@ -4,14 +4,8 @@ namespace Northstar.WS.Services
 {
     public interface IDefaultService
     {
-        public ApiError PopulateErrorResponse(int code, string message)
-        {
-            ApiError errorResponse = new ApiError
-            {
-                code = code,
-                Message = message
-            };
-            return errorResponse;
-        }
+        public void SetErrorResponse(int errorCode, string resourceId, string resourceName);
+        public ApiError GetApiErrorResponse();
+        public string CreateCustomErrorMessage(int code, string resourceId, string resourceName);
     }
 }
