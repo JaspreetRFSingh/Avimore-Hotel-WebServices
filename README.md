@@ -4,11 +4,11 @@ Basic ASP.NET Core Project for the service layer of the hotel. </br>
 ## Project Structure:
 * ### *NorthStar.SQL* (SQL Support for the project)
 * ### *NorthStar.WS* (Web Service layer)
-  * Controllers - APIControllers for the project
-  * Filters - Custom Filters injected in the pipeline
-  * Models - DBContext and Models created by scaffolding (EDM)
-  * Services - All the services injected in the project (scoped and singleton)
-  * Utility - Utility Classes common across various projects
+  * **Controllers** - APIControllers for the project
+  * **Filters** - Custom Filters injected in the pipeline
+  * **Models** - DBContext and Models created by scaffolding (EDM)
+  * **Services** - All the services injected in the project (scoped and singleton)
+  * **Utility** - Utility Classes common across various projects
 * ### *NorthStar.WS.Test* (Unit Test coverage for NorthStar.WS)
 
 ## TechStack
