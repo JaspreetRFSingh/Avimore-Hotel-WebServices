@@ -6,13 +6,13 @@ namespace Northstar.WS.Services
     public class BaseService : IBaseService
     {
         private readonly ApiError _apiError = new ApiError();
-        public void SetErrorResponse(int errorCode, string resourceId, string resourceName)
+        public void SetErrorResponse(int errorCode, string resourceId="", string resourceName="", object obj = null)
         {
             _apiError.code = errorCode;
-            _apiError.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName);
+            _apiError.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName, obj);
         }
 
-        private string CreateCustomErrorMessage(int code, string resourceId = "", string resourceName = "")
+        private string CreateCustomErrorMessage(int code, string resourceId, string resourceName, object obj)
         {
             string message = CommonConstants.CustomErrorResponses[code];
             if (message.Contains(CommonConstants.ResourceIdPlaceHolder))
@@ -22,6 +22,10 @@ namespace Northstar.WS.Services
             if (message.Contains(CommonConstants.ResourcePlaceHolder))
             {
                 message = message.Replace(CommonConstants.ResourcePlaceHolder, resourceName);
+            }
+            if (message.Contains(CommonConstants.JSONToStringPlaceHolder))
+            {
+                message = message.Replace(CommonConstants.JSONToStringPlaceHolder, obj.ToString());
             }
             return message;
         }
