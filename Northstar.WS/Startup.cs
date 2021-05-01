@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Northstar.WS.Filters;
 using Northstar.WS.Models;
 using Northstar.WS.Services;
+using Northstar.WS.Utility;
 
 namespace Northstar.WS
 {
@@ -37,7 +38,7 @@ namespace Northstar.WS
             services.AddScoped<IHotelService, HotelService>();
 
             services.AddDbContext<AvimoreDBContext>(
-        options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+        options => options.UseSqlServer(CommonConstants.DefaultConnectionStringAvimoreDb));
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddApiVersioning(options =>

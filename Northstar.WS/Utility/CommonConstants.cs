@@ -7,6 +7,10 @@ namespace Northstar.WS.Utility
 {
     public static class CommonConstants
     {
+        #region DB Related constants
+        public static string DefaultConnectionStringAvimoreDb = "name=ConnectionStrings:DefaultConnection";
+        #endregion
+
         #region Resource name constants for Controllers
         public static string ResourceNameForRoomController = "Room";
         public static string ResourceNameForHotelController = "Hotel";
