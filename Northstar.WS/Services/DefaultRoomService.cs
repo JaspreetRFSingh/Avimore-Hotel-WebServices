@@ -17,19 +17,18 @@ namespace Northstar.WS.Services
             _context = context;
         }
 
-        public void DeleteRoom(short roomId)
+        #region CRUD Operations
+        List<Room> IRoomService.GetRooms()
         {
-            Room roomToBeDeleted = GetRoomAsync(roomId).Result;
-            _context.Rooms.Remove(roomToBeDeleted);
-            _context.SaveChanges();
+            return _context.Rooms.OrderBy(r => r.Name).ToList();
         }
 
-        public async Task<Room> GetRoomAsync(short roomId)
+        public async Task<Room> GetRoomByIdAsync(short roomId)
         {
             var room = await _context.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomId);
             if (room == null)
             {
-                SetErrorResponse(301, roomId.ToString() , CommonConstants.ResourceNameForRoomController);
+                SetErrorResponse(301, roomId.ToString(), CommonConstants.ResourceNameForRoomController);
                 return null;
             }
             return room;
@@ -41,22 +40,32 @@ namespace Northstar.WS.Services
             _context.SaveChanges();
         }
 
-        public void SetErrorResponse(int errorCode, string resourceId, string resourceName)
-        {
-            _apiError.code = errorCode;
-            _apiError.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName);
-        }
-
         public void UpdateRoom(Room room)
         {
             Room roomToBeUpdated = _context.Rooms.FirstOrDefault(r => r.RoomId == room.RoomId);
-            if(roomToBeUpdated == null)
+            if (roomToBeUpdated == null)
             {
                 return;
             }
             roomToBeUpdated.Name = room.Name;
             roomToBeUpdated.Rate = room.Rate;
             _context.SaveChanges();
+        }
+
+        public void DeleteRoom(short roomId)
+        {
+            Room roomToBeDeleted = GetRoomByIdAsync(roomId).Result;
+            _context.Rooms.Remove(roomToBeDeleted);
+            _context.SaveChanges();
+        }
+
+        #endregion
+
+        #region Other implementations
+        public void SetErrorResponse(int errorCode, string resourceId, string resourceName)
+        {
+            _apiError.code = errorCode;
+            _apiError.Message = CreateCustomErrorMessage(errorCode, resourceId, resourceName);
         }
 
         public string CreateCustomErrorMessage(int code, string resourceId = "", string resourceName = "")
@@ -77,10 +86,6 @@ namespace Northstar.WS.Services
         {
             return _apiError;
         }
-
-        List<Room> IRoomService.GetRooms()
-        {
-            return _context.Rooms.OrderBy(r => r.Name).ToList();
-        }
+        #endregion
     }
 }

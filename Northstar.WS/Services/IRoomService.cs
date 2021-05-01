@@ -6,7 +6,7 @@ namespace Northstar.WS.Services
 {
     public interface IRoomService: IDefaultService
     {
-        Task<Room> GetRoomAsync(short roomId);
+        Task<Room> GetRoomByIdAsync(short roomId);
         List<Room> GetRooms();
         void DeleteRoom(short roomId);
         void InsertRoom(Room room);

@@ -30,7 +30,7 @@ namespace Northstar.WS.Controllers
         [ResponseCache(Duration = 60)]
         public async Task<ActionResult<Room>> GetRoomById(short roomId)
         {
-            var room = await _roomService.GetRoomAsync(roomId);
+            var room = await _roomService.GetRoomByIdAsync(roomId);
             if(room == null)
             {
                 return NotFound(_roomService.GetApiErrorResponse());
