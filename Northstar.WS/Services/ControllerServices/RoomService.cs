@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Northstar.WS.Services
 {
-    public class DefaultRoomService : BaseService, IRoomService
+    public class RoomService : BaseService, IRoomService
     {
         private readonly AvimoreDBContext _context;
         
-        public DefaultRoomService(AvimoreDBContext context)
+        public RoomService(AvimoreDBContext context)
         {
             _context = context;
         }

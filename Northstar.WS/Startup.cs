@@ -33,7 +33,7 @@ namespace Northstar.WS
             );
 
             //not a singleton service. Will be created everytime the room controller is invoked
-            services.AddScoped<IRoomService, DefaultRoomService>();
+            services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IHotelService, HotelService>();
 
             services.AddDbContext<AvimoreDBContext>(
