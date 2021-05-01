@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Northstar.WS.Services
 {
-    public interface IHotelService
+    public interface IHotelService: IBaseService
     {
         Task<Hotel> GetHotelAsync(int hotelId);
         List<Hotel> GetHotels();

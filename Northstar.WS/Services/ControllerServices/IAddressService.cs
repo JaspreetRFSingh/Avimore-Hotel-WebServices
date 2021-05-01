@@ -2,7 +2,7 @@
 
 namespace Northstar.WS.Services
 {
-    public interface IAddressService
+    public interface IAddressService: IBaseService
     {
         FacilityAddress GetAddress(short addressId);
     }
