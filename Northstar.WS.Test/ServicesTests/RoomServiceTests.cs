@@ -41,5 +41,21 @@ namespace Northstar.WS.Test
             Assert.AreEqual("ExeZ", rooms[2].Name);
 
         }
+
+        [TestMethod]
+        public void AddRoom_adds_a_room()
+        {
+            var mockSet = new Mock<DbSet<Room>>();
+
+            var mockContext = new Mock<AvimoreDBContext>();
+            mockContext.Setup(m => m.Rooms).Returns(mockSet.Object);
+
+            var service = new RoomService(mockContext.Object);
+            Room mockRoomToBeAdded = new Room { Name = "VVIP", Rate = 3400 };
+            service.InsertRoom(mockRoomToBeAdded);
+
+            mockSet.Verify(m => m.Add(It.IsAny<Room>()), Times.Once());
+            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+        }
     }
 }
