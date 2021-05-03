@@ -18,7 +18,7 @@ namespace Northstar.WS.Services
         }
 
         #region CRUD Operations
-        List<Room> IRoomService.GetRooms()
+        public List<Room> GetRooms()
         {
             if (_context.Rooms.Count() == 0)
             {

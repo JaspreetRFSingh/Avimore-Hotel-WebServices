@@ -1,0 +1,45 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Northstar.WS.Models;
+using Northstar.WS.Services;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Northstar.WS.Test
+{
+    [TestClass]
+    public class RoomServiceTests
+    {
+
+        [TestMethod]
+        public void GetRooms_GetAllRooms()
+        {
+            var data = new List<Room>
+            {
+                new Room { Name = "Deluxe",Rate = 2300 },
+                new Room { Name = "ExeZ", Rate = 2500 },
+                new Room { Name = "Basic", Rate = 2000 }
+            }.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Room>>();
+            mockSet.As<IQueryable<Room>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Room>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Room>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Room>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            var mockContext = new Mock<AvimoreDBContext>();
+            mockContext.Setup(c => c.Rooms).Returns(mockSet.Object);
+
+            var service = new RoomService(mockContext.Object);
+            var rooms = service.GetRooms();
+
+            Assert.AreEqual(3, rooms.Count);
+            //order is changed because getAllRooms method returns the rooms based o alphabetical order
+            Assert.AreEqual("Basic", rooms[0].Name);
+            Assert.AreEqual("Deluxe", rooms[1].Name);
+            Assert.AreEqual("ExeZ", rooms[2].Name);
+
+        }
+    }
+}
