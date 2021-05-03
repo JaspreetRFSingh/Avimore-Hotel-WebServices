@@ -6,7 +6,7 @@ using Northstar.WS.Services;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Northstar.WS.Test
+namespace Northstar.WS.Test.ServicesTests
 {
     [TestClass]
     public class RoomServiceTests
