@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Northstar.WS.Test.Providers
 {
-    internal class TestDbAsyncQueryProvider<TEntity> : IDbAsyncQueryProvider
+    internal class TestDbAsyncQueryProvider<TEntity> : IAsyncQueryProvider
     {
         private readonly IQueryProvider _inner;
 
@@ -38,6 +39,31 @@ namespace Northstar.WS.Test.Providers
             return _inner.Execute<TResult>(expression);
         }
 
+        public TResult ExecuteAsync<TResult>(Expression expression, CancellationToken cancellationToken = default)
+        {
+            return Execute<TResult>(expression);
+        }
+
+        /*public IQueryable CreateQuery(Expression expression)
+        {
+            return new TestDbAsyncEnumerable<TEntity>(expression);
+        }
+
+        public IQueryable<TElement> CreateQuery<TElement>(Expression expression)
+        {
+            return new TestDbAsyncEnumerable<TElement>(expression);
+        }
+
+        public object Execute(Expression expression)
+        {
+            return _inner.Execute(expression);
+        }
+
+        public TResult Execute<TResult>(Expression expression)
+        {
+            return _inner.Execute<TResult>(expression);
+        }
+
         public Task<object> ExecuteAsync(Expression expression, CancellationToken cancellationToken)
         {
             return Task.FromResult(Execute(expression));
@@ -46,7 +72,7 @@ namespace Northstar.WS.Test.Providers
         public Task<TResult> ExecuteAsync<TResult>(Expression expression, CancellationToken cancellationToken)
         {
             return Task.FromResult(Execute<TResult>(expression));
-        }
+        }*/
     }
 
     internal class TestDbAsyncEnumerable<T> : EnumerableQuery<T>, IDbAsyncEnumerable<T>, IQueryable<T>
