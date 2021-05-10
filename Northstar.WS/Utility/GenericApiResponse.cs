@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
 
 namespace Northstar.WS.Models
 {
-    //Generic model class to represent an error/success response
+    /// <summary>
+    /// POCO representing a model for a Generic API Response
+    /// </summary>
     public class GenericApiResponse
     {
         public string Message

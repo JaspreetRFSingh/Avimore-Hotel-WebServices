@@ -3,9 +3,15 @@ using Northstar.WS.Utility;
 
 namespace Northstar.WS.Services
 {
+    /// <summary>
+    /// Implementation of the IBaseService, to be inherited by all the service classes
+    /// </summary>
     public class BaseService : IBaseService
     {
         private readonly GenericApiResponse _genericApiResponse = new GenericApiResponse();
+
+        #region IBaseService methods definition
+
         public void SetErrorResponse(int errorCode, string resourceId="", string resourceName="", object obj = null)
         {
             _genericApiResponse.Code = errorCode;
@@ -32,11 +38,14 @@ namespace Northstar.WS.Services
             _genericApiResponse.ResponseObject = obj;
         }
 
+        #endregion
+
         public GenericApiResponse GetGenericApiResponse()
         {
             return _genericApiResponse;
         }
 
+        #region Private Methods
         private string CreateCustomSuccessMessage(int code, string resourceName)
         {
             string message = CommonConstants.CustomGenericServiceResponses[code];
@@ -64,6 +73,8 @@ namespace Northstar.WS.Services
             }
             return message;
         }
+
+        #endregion
 
     }
 }

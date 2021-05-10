@@ -2,7 +2,10 @@
 
 namespace Northstar.WS.Services
 {
-    public interface IBaseService: IErrorResponse
+    /// <summary>
+    /// IBaseService: Interface declaring the generic api responses(errors and success)
+    /// </summary>
+    public interface IBaseService: IApiGenericResponse
     {
         public void SetErrorResponse(int errorCode, string resourceId = "", string resourceName = "", object obj = null);
         public void SetErrorResponse(int errorCode, string message="");

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Northstar.WS.Utility
 {
+    /// <summary>
+    /// Static class CommonConstants having all the common constants to be used at various places in the application 
+    /// </summary>
     public static class CommonConstants
     {
         #region DB Related constants
