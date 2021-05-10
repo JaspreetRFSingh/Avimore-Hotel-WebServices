@@ -61,6 +61,8 @@ namespace Northstar.WS.Test.ServicesTests
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
 
+
+        // TODO: Yet to be rectified
         [TestMethod]
         public async Task GetRoomByIdAsync_fetches_a_room_by_id()
         {
