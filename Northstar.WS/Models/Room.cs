@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Northstar.WS.Infrastructure.CustomAttributes;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,8 +11,10 @@ namespace Northstar.WS.Models
     {
         public short RoomId { get; set; }
         [Required]
+        [Sortable]
         public string Name { get; set; }
         [Range(400.0, 12000.00)]
+        [Sortable]
         public float Rate { get; set; }
         public override string ToString()
         {

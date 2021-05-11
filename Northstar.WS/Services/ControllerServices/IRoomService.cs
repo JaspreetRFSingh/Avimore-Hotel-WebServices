@@ -7,7 +7,7 @@ namespace Northstar.WS.Services
     public interface IRoomService : IBaseService
     {
         Task<Room> GetRoomByIdAsync(short roomId);
-        List<Room> GetRooms();
+        List<Room> GetRooms(SortOptions<Room> sortOptions);
         bool DeleteRoom(short roomId);
         bool InsertRoom(Room room);
         bool UpdateRoom(Room room);

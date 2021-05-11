@@ -18,13 +18,15 @@ namespace Northstar.WS.Services
         }
 
         #region CRUD Operations
-        public List<Room> GetRooms()
+        public List<Room> GetRooms(SortOptions<Room> sortOptions)
         {
+            IQueryable<Room> query = _context.Rooms;
+            query = sortOptions.Apply(query);
             if (_context.Rooms.Count() == 0)
             {
                 SetErrorResponse(300, string.Empty);
             }
-            return _context.Rooms.OrderBy(r => r.Name).ToList();
+            return query.ToList<Room>();
         }
 
         public async Task<Room> GetRoomByIdAsync(short roomId)

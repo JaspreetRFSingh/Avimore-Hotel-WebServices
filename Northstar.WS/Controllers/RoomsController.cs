@@ -19,9 +19,11 @@ namespace Northstar.WS.Controllers
 
         [HttpGet(Name = nameof(GetRooms))]
         [ProducesResponseType(200)]
-        public ActionResult<List<Room>> GetRooms()
+        public ActionResult<List<Room>> GetRooms(
+            [FromQuery] SortOptions<Room> sortOptions
+            )
         {
-            return _roomService.GetRooms();
+            return _roomService.GetRooms(sortOptions);
         }
 
         [HttpGet("{roomid}", Name = nameof(GetRoomById))]
