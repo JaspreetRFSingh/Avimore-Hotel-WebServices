@@ -53,7 +53,8 @@ namespace Northstar.WS.Infrastructure
                 yield return new SortTerm
                 {
                     Name = declaredTerm.Name,
-                    IsDescending = term.IsDescending
+                    IsDescending = term.IsDescending,
+                    Default = declaredTerm.Default
                 };
             }
         }
@@ -61,6 +62,12 @@ namespace Northstar.WS.Infrastructure
         public IQueryable<T> Apply(IQueryable<T> query)
         {
             var terms = GetValidTerms().ToArray();
+
+            if (!terms.Any())
+            {
+                terms = GetTermsFromModel().Where(t => t.Default).ToArray();
+            }
+
             if (!terms.Any()) return query;
 
             var modifiedQuery = query;
@@ -81,7 +88,12 @@ namespace Northstar.WS.Infrastructure
         private static IEnumerable<SortTerm> GetTermsFromModel()
             => typeof(T).GetTypeInfo().DeclaredProperties
             .Where(p => p.GetCustomAttributes<SortableAttribute>().Any())
-            .Select(p => new SortTerm { Name = p.Name });
+            .Select(p => new SortTerm 
+            { 
+                Name = p.Name,
+                Default = p.GetCustomAttribute<SortableAttribute>().Default
+            }
+            );
 
     }
 }

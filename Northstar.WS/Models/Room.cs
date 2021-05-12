@@ -14,7 +14,7 @@ namespace Northstar.WS.Models
         [Sortable]
         public string Name { get; set; }
         [Range(400.0, 12000.00)]
-        [Sortable]
+        [Sortable(Default = true)]
         public float Rate { get; set; }
         public override string ToString()
         {

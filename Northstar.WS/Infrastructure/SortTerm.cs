@@ -9,5 +9,7 @@ namespace Northstar.WS.Infrastructure
         public string Name { get; set; }
 
         public bool IsDescending { get; set; }
+
+        public bool Default { get; set; }
     }
 }
