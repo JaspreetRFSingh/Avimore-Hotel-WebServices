@@ -18,9 +18,10 @@ namespace Northstar.WS.Services
         }
 
         #region CRUD Operations
-        public List<Room> GetRooms(SortOptions<Room> sortOptions)
+        public List<Room> GetRooms(SortOptions<Room> sortOptions, SearchOptions<Room> searchOptions)
         {
             IQueryable<Room> query = _context.Rooms;
+            query = searchOptions.Apply(query);
             query = sortOptions.Apply(query);
             if (_context.Rooms.Count() == 0)
             {
