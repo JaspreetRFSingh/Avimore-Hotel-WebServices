@@ -9,6 +9,9 @@ namespace Northstar.WS.Models
 {
     public class SortOptions<T> : IValidatableObject
     {
+        /// <summary>
+        /// The queryname which ASP.NET Core searches for, in the URI (Case Insensitive)
+        /// </summary>
         public string[] OrderBy { get; set; }
 
         /// <summary>

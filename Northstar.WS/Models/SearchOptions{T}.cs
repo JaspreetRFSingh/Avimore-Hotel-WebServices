@@ -8,6 +8,9 @@ namespace Northstar.WS.Models
 {
     public class SearchOptions<T> : IValidatableObject
     {
+        /// <summary>
+        /// The parameter name which ASP.NET Core searches for, in the URI (Case insensitive)
+        /// </summary>
         public string[] Search { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
