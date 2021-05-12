@@ -12,9 +12,11 @@ namespace Northstar.WS.Models
         public short RoomId { get; set; }
         [Required]
         [Sortable]
+        [Searchable]
         public string Name { get; set; }
         [Range(400.0, 12000.00)]
         [Sortable(Default = true)]
+        [Searchable]
         public float Rate { get; set; }
         public override string ToString()
         {
