@@ -5,6 +5,11 @@ using System.Reflection;
 
 namespace Northstar.WS.Infrastructure
 {
+    /// <summary>
+    /// SearchOptionsProcessor<T>
+    /// Delegated class to hold the responsibility of sorting through a Service
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class SortOptionsProcessor<T>
     {
         private readonly string[] _orderBy;

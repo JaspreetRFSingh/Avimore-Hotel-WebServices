@@ -5,6 +5,9 @@ using Northstar.WS.Utility;
 
 namespace Northstar.WS.Models
 {
+    /// <summary>
+    /// DBContext class for the Avimore DB
+    /// </summary>
     public partial class AvimoreDBContext : DbContext
     {
         public AvimoreDBContext()

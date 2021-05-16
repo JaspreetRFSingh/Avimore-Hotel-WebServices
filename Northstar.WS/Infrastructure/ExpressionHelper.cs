@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace Northstar.WS.Infrastructure
 {
+    /// <summary>
+    /// Utility class to create and model LINQ expressions
+    /// </summary>
     public static class ExpressionHelper
     {
         private static readonly MethodInfo LambdaMethod = typeof(Expression)

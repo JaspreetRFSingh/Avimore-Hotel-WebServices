@@ -7,6 +7,11 @@ using System.Reflection;
 
 namespace Northstar.WS.Infrastructure
 {
+    /// <summary>
+    /// SearchOptionsProcessor<T>
+    /// Delegated class to hold the responsibility of searching through a Service
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class SearchOptionsProcessor<T>
     {
         private string[] _searchQuery;
