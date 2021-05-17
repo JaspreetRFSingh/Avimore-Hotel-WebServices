@@ -2,6 +2,7 @@
 using Northstar.WS.Models;
 using Northstar.WS.Services;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Northstar.WS.Controllers
@@ -17,7 +18,7 @@ namespace Northstar.WS.Controllers
             _roomService = roomService;
         }
 
-        [ResponseCache(CacheProfileName ="Static")]
+        [ResponseCache(Duration =30)]
         [HttpGet(Name = nameof(GetRooms))]
         [ProducesResponseType(200)]
         public ActionResult<List<Room>> GetRooms(
@@ -25,6 +26,8 @@ namespace Northstar.WS.Controllers
             [FromQuery] SearchOptions<Room> searchOptions
             )
         {
+            //To demonstrate server caching
+            Thread.Sleep(3000);
             return _roomService.GetRooms(sortOptions, searchOptions);
         }
 

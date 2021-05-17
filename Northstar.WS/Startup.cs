@@ -58,6 +58,8 @@ namespace Northstar.WS
                 //options.AddPolicy("AllowMyApp", policy => policy.WithOrigins("https://example.com"));
                 options.AddPolicy("AllowMyApp", policy => policy.AllowAnyOrigin()); //allows any origin, recommended ONLY during prouction
             });
+
+            services.AddResponseCaching();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +81,8 @@ namespace Northstar.WS
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseResponseCaching();
 
             app.UseEndpoints(endpoints =>
             {
