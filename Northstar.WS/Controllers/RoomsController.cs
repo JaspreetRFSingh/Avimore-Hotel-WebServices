@@ -17,6 +17,7 @@ namespace Northstar.WS.Controllers
             _roomService = roomService;
         }
 
+        [ResponseCache(CacheProfileName ="Static")]
         [HttpGet(Name = nameof(GetRooms))]
         [ProducesResponseType(200)]
         public ActionResult<List<Room>> GetRooms(
@@ -43,7 +44,6 @@ namespace Northstar.WS.Controllers
 
         [HttpDelete("{roomId}", Name = nameof(DeleteRoom))]
         [ProducesResponseType(200)]
-        [ResponseCache(Duration = 60)]
         public ActionResult DeleteRoom(short roomId)
         {
             if (!_roomService.DeleteRoom(roomId))
@@ -55,7 +55,6 @@ namespace Northstar.WS.Controllers
 
         [HttpPost(Name = nameof(AddRoom))]
         [ProducesResponseType(200)]
-        [ResponseCache(Duration = 60)]
         public ActionResult AddRoom([FromBody] Room room)
         {
             if (!_roomService.InsertRoom(room))
@@ -67,7 +66,6 @@ namespace Northstar.WS.Controllers
 
         [HttpPut(Name = nameof(UpdateRoom))]
         [ProducesResponseType(200)]
-        [ResponseCache(Duration = 60)]
         public ActionResult UpdateRoom([FromBody] Room room)
         {
             if (!_roomService.UpdateRoom(room))
