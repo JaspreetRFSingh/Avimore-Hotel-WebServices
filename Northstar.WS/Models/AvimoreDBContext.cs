@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Northstar.WS.Models.Auth;
 using Northstar.WS.Utility;
+using System;
 
 #nullable disable
 
@@ -8,7 +11,7 @@ namespace Northstar.WS.Models
     /// <summary>
     /// DBContext class for the Avimore DB
     /// </summary>
-    public partial class AvimoreDBContext : DbContext
+    public partial class AvimoreDBContext : IdentityDbContext<UserEntity, UserRoleEntity, Guid>
     {
         public AvimoreDBContext()
         {

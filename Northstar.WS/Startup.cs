@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Northstar.WS.Filters;
 using Northstar.WS.Models;
+using Northstar.WS.Models.Auth;
 using Northstar.WS.Services;
 using Northstar.WS.Utility;
 
@@ -60,6 +62,12 @@ namespace Northstar.WS
             });
 
             services.AddResponseCaching();
+
+            //adding the ASP.NET core identity
+            //services.AddIdentity(); -- used normally; Adds a cookie authenticaton handler
+
+            AddIdentityCoreServices(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,5 +97,20 @@ namespace Northstar.WS
                 endpoints.MapControllers();
             });
         }
+
+        private static void AddIdentityCoreServices(IServiceCollection services)
+        {
+            var builder = services.AddIdentityCore<UserEntity>();
+            builder = new Microsoft.AspNetCore.Identity.IdentityBuilder(
+                builder.UserType,
+                typeof(UserRoleEntity),
+                builder.Services
+                );
+            builder.AddRoles<UserRoleEntity>()
+                .AddEntityFrameworkStores<AvimoreDBContext>()
+                .AddDefaultTokenProviders()
+                .AddSignInManager<SignInManager<UserEntity>>();
+        }
+
     }
 }
