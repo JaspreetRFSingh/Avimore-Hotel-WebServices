@@ -26,6 +26,8 @@ namespace Northstar.WS.Models
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<HotelRoom> HotelRooms { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -96,6 +98,51 @@ namespace Northstar.WS.Models
                 entity.ToTable("Room");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("User");
+
+                entity.HasIndex(e => e.UserId, "IX_User");
+
+                entity.Property(e => e.UserId).ValueGeneratedNever();
+
+                entity.Property(e => e.Created).HasColumnType("datetime");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LastModified).HasColumnType("datetime");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.UserRole)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.UserRoleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_UserRole");
+            });
+
+            modelBuilder.Entity<UserRole>(entity =>
+            {
+                entity.ToTable("UserRole");
+
+                entity.Property(e => e.UserRoleId).ValueGeneratedNever();
+
+                entity.Property(e => e.RoleName)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
