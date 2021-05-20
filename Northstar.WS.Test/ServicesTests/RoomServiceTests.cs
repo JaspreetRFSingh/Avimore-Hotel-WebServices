@@ -35,7 +35,8 @@ namespace Northstar.WS.Test.ServicesTests
             mockContext.Setup(c => c.Rooms).Returns(mockSet.Object);
 
             var service = new RoomService(mockContext.Object);
-            var rooms = service.GetRooms();
+            List<Room> rooms = null;
+            //service.GetRooms();
 
             Assert.AreEqual(3, rooms.Count);
             //order is changed because getAllRooms method returns the rooms based o alphabetical order
