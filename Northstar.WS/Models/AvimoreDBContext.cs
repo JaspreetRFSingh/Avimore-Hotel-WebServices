@@ -104,10 +104,6 @@ namespace Northstar.WS.Models
             {
                 entity.ToTable("User");
 
-                entity.HasIndex(e => e.UserId, "IX_User");
-
-                entity.Property(e => e.UserId).ValueGeneratedNever();
-
                 entity.Property(e => e.Created).HasColumnType("datetime");
 
                 entity.Property(e => e.Email)
