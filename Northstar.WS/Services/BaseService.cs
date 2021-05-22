@@ -8,6 +8,8 @@ namespace Northstar.WS.Services
     /// </summary>
     public class BaseService : IBaseService
     {
+        public string CurrentController = string.Empty; 
+
         private readonly GenericApiResponse _genericApiResponse = new GenericApiResponse();
 
         #region IBaseService methods definition

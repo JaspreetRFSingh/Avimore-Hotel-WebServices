@@ -15,6 +15,7 @@ namespace Northstar.WS.Services
         public RoomService(AvimoreDBContext context)
         {
             _context = context;
+            CurrentController = CommonConstants.ResourceNameForRoomController;
         }
 
         #region CRUD Operations
@@ -35,7 +36,7 @@ namespace Northstar.WS.Services
             var room = await _context.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomId);
             if (room == null)
             {
-                SetErrorResponse(301, roomId.ToString(), CommonConstants.ResourceNameForRoomController);
+                SetErrorResponse(301, roomId.ToString(), CurrentController);
                 return null;
             }
             return room;
@@ -47,17 +48,17 @@ namespace Northstar.WS.Services
             {
                 _context.Rooms.Add(room);
                 _context.SaveChanges();
-                SetSuccessResponse(201, CommonConstants.ResourceNameForRoomController, room);
+                SetSuccessResponse(201, CurrentController, room);
                 return true;
             }
             catch (DbUpdateException)
             {
-                SetErrorResponse(302, resourceName: CommonConstants.ResourceNameForRoomController, obj: room);
+                SetErrorResponse(302, resourceName: CurrentController, obj: room);
                 return false;
             }
             catch (Exception)
             {
-                SetErrorResponse(102, resourceName: CommonConstants.ResourceNameForRoomController);
+                SetErrorResponse(102, resourceName: CurrentController);
                 return false;
             }
         }
@@ -67,7 +68,7 @@ namespace Northstar.WS.Services
             Room roomToBeUpdated = _context.Rooms.FirstOrDefault(r => r.RoomId == room.RoomId);
             if (roomToBeUpdated == null)
             {
-                SetErrorResponse(301, room.RoomId.ToString(), CommonConstants.ResourceNameForRoomController);
+                SetErrorResponse(301, room.RoomId.ToString(), CurrentController);
                 return false;
             }
             try
@@ -75,17 +76,17 @@ namespace Northstar.WS.Services
                 roomToBeUpdated.Name = room.Name;
                 roomToBeUpdated.Rate = room.Rate;
                 _context.SaveChanges();
-                SetSuccessResponse(202, CommonConstants.ResourceNameForRoomController, roomToBeUpdated);
+                SetSuccessResponse(202, CurrentController, roomToBeUpdated);
                 return true;
             }
             catch (DbUpdateException)
             {
-                SetErrorResponse(303, resourceName: CommonConstants.ResourceNameForRoomController, obj: room);
+                SetErrorResponse(303, resourceName: CurrentController, obj: room);
                 return false;
             }
             catch (Exception)
             {
-                SetErrorResponse(102, resourceName: CommonConstants.ResourceNameForRoomController);
+                SetErrorResponse(102, resourceName: CurrentController);
                 return false;
             }
         }
@@ -95,14 +96,14 @@ namespace Northstar.WS.Services
             Room roomToBeDeleted = GetRoomByIdAsync(roomId).Result;
             if (roomToBeDeleted == null)
             {
-                SetErrorResponse(301, roomId.ToString(), CommonConstants.ResourceNameForRoomController);
+                SetErrorResponse(301, roomId.ToString(), CurrentController);
                 return false;
             }
             try
             {
                 _context.Rooms.Remove(roomToBeDeleted);
                 _context.SaveChanges();
-                SetSuccessResponse(203, CommonConstants.ResourceNameForRoomController, roomToBeDeleted);
+                SetSuccessResponse(203, CurrentController, roomToBeDeleted);
                 return true;
             }
             catch (DbUpdateException e)
@@ -112,7 +113,7 @@ namespace Northstar.WS.Services
             }
             catch (Exception)
             {
-                SetErrorResponse(102, resourceName: CommonConstants.ResourceNameForRoomController);
+                SetErrorResponse(102, resourceName: CurrentController);
                 return false;
             }
         }

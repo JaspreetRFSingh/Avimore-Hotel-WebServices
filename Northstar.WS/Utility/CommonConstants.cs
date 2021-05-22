@@ -15,6 +15,7 @@ namespace Northstar.WS.Utility
         public static string ResourceNameForRoomController = "Room";
         public static string ResourceNameForHotelController = "Hotel";
         public static string ResourceNameForAddressController = "Address";
+        public static string ResourceNameForUserController = "User";
         #endregion
 
         public static string ResourcePlaceHolder = "<resource>";
