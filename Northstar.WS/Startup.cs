@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Northstar.WS.Filters;
 using Northstar.WS.Models;
 using Northstar.WS.Services;
+using Northstar.WS.Services.ControllerServices;
 using Northstar.WS.Utility;
 
 namespace Northstar.WS
@@ -40,6 +41,7 @@ namespace Northstar.WS
             //not a singleton service. Will be created everytime the room controller is invoked
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IHotelService, HotelService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddDbContext<AvimoreDBContext>(
         options => options.UseSqlServer(CommonConstants.DefaultConnectionStringAvimoreDb));
