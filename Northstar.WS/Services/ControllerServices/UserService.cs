@@ -43,6 +43,26 @@ namespace Northstar.WS.Services.ControllerServices
             return usersToReturn;
         }
 
+        public UserDTO GetUserById(int userId)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+            {
+                SetErrorResponse(301, userId.ToString(), CurrentController);
+                return null;
+            }
+            UserDTO selectedUser = new UserDTO()
+            {
+                Email = user.Email,
+                Role = new UserRoleDTO()
+                {
+                    UserRoleName = GetUserRoleInfo(user.UserRoleId)
+                },
+                UserName = user.UserName
+            };
+            return selectedUser;
+        }
+
         public bool RegisterUser(UserDTO user)
         {
             var userToBeAdded = new User
@@ -54,11 +74,15 @@ namespace Northstar.WS.Services.ControllerServices
                 Created = DateTime.Now,
                 LastModified = DateTime.Now
             };
+            //to not to show to the user
+            user.Password = null;
             try
             {
                 _context.Users.Add(userToBeAdded);
                 _context.SaveChanges();
-                SetSuccessResponse(201, CurrentController, user);
+                var generatedUserId = _context.Users.OrderBy(k=>k.UserId).Last<User>().UserId;
+                var userAdded = GetUserById(generatedUserId);
+                SetSuccessResponse(201, CurrentController, userAdded);
                 return true;
             }
             catch (DbUpdateException)

@@ -12,5 +12,6 @@ namespace Northstar.WS.Services.ControllerServices
         List<UserDTO> GetUsers();
         bool RegisterUser(UserDTO user);
         string GetUserRoleInfo(int roleId);
+        public UserDTO GetUserById(int userId);
     }
 }

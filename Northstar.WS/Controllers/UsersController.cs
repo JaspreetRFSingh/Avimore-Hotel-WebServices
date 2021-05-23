@@ -32,5 +32,18 @@ namespace Northstar.WS.Controllers
             return Ok(_userService.GetGenericApiResponse());
         }
 
+        [HttpGet("{userId}", Name = nameof(GetUserById))]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ResponseCache(Duration = 60)]
+        public ActionResult<UserDTO> GetUserById(int userId) {
+            var user = _userService.GetUserById(userId);
+            if (user == null)
+            {
+                return NotFound(_userService.GetGenericApiResponse());
+            }
+            return user;
+        }
+
     }
 }
