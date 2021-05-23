@@ -36,6 +36,11 @@ namespace Northstar.WS
                     options.Filters.Add<JsonExceptionFilter>();
                     options.Filters.Add<RequireHttpsOrCloseFilter>();
                 }
+            ).AddJsonOptions(
+                options =>
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                }
             );
 
             //not a singleton service. Will be created everytime the room controller is invoked
