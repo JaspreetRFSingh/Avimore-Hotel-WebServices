@@ -1,4 +1,5 @@
 ﻿using Northstar.WS.Models;
+using Northstar.WS.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,8 @@ namespace Northstar.WS.Services.ControllerServices
 {
     public interface IUserService : IBaseService
     {
-        List<User> GetUsers();
-        bool RegisterUser(User user);
+        List<UserDTO> GetUsers();
+        bool RegisterUser(UserDTO user);
+        string GetUserRoleInfo(int roleId);
     }
 }

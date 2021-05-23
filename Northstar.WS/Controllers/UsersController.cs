@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Northstar.WS.Models;
+using Northstar.WS.Models.DTO;
 using Northstar.WS.Services.ControllerServices;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Northstar.WS.Controllers
 {
@@ -19,14 +16,14 @@ namespace Northstar.WS.Controllers
             _userService = userService;
         }
 
-        public ActionResult<List<User>> GetUsers()
+        public ActionResult<List<UserDTO>> GetUsers()
         {
             return _userService.GetUsers();
         }
 
         [HttpPost(Name = nameof(AddUser))]
         [ProducesResponseType(200)]
-        public ActionResult AddUser([FromBody] User user)
+        public ActionResult AddUser([FromBody] UserDTO user)
         {
             if (!_userService.RegisterUser(user))
             {
@@ -34,7 +31,6 @@ namespace Northstar.WS.Controllers
             }
             return Ok(_userService.GetGenericApiResponse());
         }
-
 
     }
 }

@@ -1,10 +1,10 @@
 ﻿using Northstar.WS.Models;
+using Northstar.WS.Models.DTO;
 using Northstar.WS.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Northstar.WS.Services.ControllerServices
 {
@@ -18,27 +18,52 @@ namespace Northstar.WS.Services.ControllerServices
             CurrentController = CommonConstants.ResourceNameForUserController;
         }
 
-        public List<User> GetUsers()
+        public string GetUserRoleInfo(int roleId)
         {
-            return _context.Users.ToList();
+            return _context.UserRoles.FirstOrDefault(ur => ur.UserRoleId == roleId).RoleName.ToString();
         }
 
-        public bool RegisterUser(User user)
+        public List<UserDTO> GetUsers()
         {
-            var userToBeAdded = user;
-            userToBeAdded.Password = PasswordHelper.ComputeHash(user.Password, "SHA512", null);
-            userToBeAdded.Created = DateTime.Now;
-            userToBeAdded.LastModified = DateTime.Now;
+            var users = _context.Users.ToList();
+            List<UserDTO> usersToReturn = new List<UserDTO>();
+            foreach (var user in users)
+            {
+                usersToReturn.Add(
+                    new UserDTO
+                    {
+                        Email = user.Email,
+                        UserName = user.UserName,
+                        Role = new UserRoleDTO()
+                        {
+                            UserRoleName = GetUserRoleInfo(user.UserRoleId)
+                        }
+                    });
+            }
+            return usersToReturn;
+        }
+
+        public bool RegisterUser(UserDTO user)
+        {
+            var userToBeAdded = new User
+            {
+                Email = user.Email,
+                UserName = user.UserName,
+                UserRoleId = (int)user.Role.UserRoleId,
+                Password = PasswordHelper.ComputeHash(user.Password, "SHA512", null),
+                Created = DateTime.Now,
+                LastModified = DateTime.Now
+            };
             try
             {
                 _context.Users.Add(userToBeAdded);
                 _context.SaveChanges();
-                SetSuccessResponse(201, CurrentController, userToBeAdded);
+                SetSuccessResponse(201, CurrentController, user);
                 return true;
             }
             catch (DbUpdateException)
             {
-                SetErrorResponse(302, resourceName: CurrentController, obj: userToBeAdded);
+                SetErrorResponse(302, resourceName: CurrentController, obj: user);
                 return false;
             }
             catch (Exception)

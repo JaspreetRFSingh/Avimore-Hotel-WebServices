@@ -12,7 +12,6 @@ namespace Northstar.WS.Models
             get; set;
         }
         public int Code { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public object? ResponseObject { get; set; }
     }
 }
