@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OpenIdConnect.Primitives" Version="2.0.0" />
+    <PackageReference Include="AspNet.Security.OpenIdConnect.Server" Version="2.0.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
@@ -17,6 +19,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="OpenIddict" Version="3.0.4" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="3.0.4" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.1" />
   </ItemGroup>
 
 

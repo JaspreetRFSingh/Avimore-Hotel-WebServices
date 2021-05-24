@@ -1,5 +1,7 @@
+using AspNet.Security.OpenIdConnect.Primitives;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Northstar.WS.Filters;
 using Northstar.WS.Models;
+using Northstar.WS.Models.DTO;
 using Northstar.WS.Services;
 using Northstar.WS.Services.ControllerServices;
 using Northstar.WS.Utility;
+using System;
+using OpenIddict.Validation;
 
 namespace Northstar.WS
 {
@@ -49,7 +54,45 @@ namespace Northstar.WS
             services.AddScoped<IUserService, UserService>();
 
             services.AddDbContext<AvimoreDBContext>(
-        options => options.UseSqlServer(CommonConstants.DefaultConnectionStringAvimoreDb));
+                options =>
+                {
+                    options.UseSqlServer(CommonConstants.DefaultConnectionStringAvimoreDb);
+                    options.UseOpenIddict<Guid>();
+                });
+
+            services.AddOpenIddict()
+                .AddCore(options =>
+                {
+                    options.UseEntityFrameworkCore()
+                    .UseDbContext<AvimoreDBContext>()
+                    .ReplaceDefaultEntities<Guid>();
+                })
+                .AddServer(options =>
+                {
+                    options.UseMvc();
+                    options.SetTokenEndpointUris("/api/token");
+                    options.AllowPasswordFlow();
+                    options.AcceptAnonymousClients();
+                })
+                .AddValidation();
+
+            services.Configure<IdentityOptions>(
+                options =>
+                {
+                    options.ClaimsIdentity.UserNameClaimType = OpenIdConnectConstants.Claims.Name;
+                    options.ClaimsIdentity.UserNameClaimType = OpenIdConnectConstants.Claims.Subject;
+                    options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
+                });
+
+            //IMPORTANT TO ADD if IdentityCoreServices are being added
+            services.AddAuthentication();
+            /*services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = OpenIddict.Validation.valid
+            });*/
+
+            AddIdentityCoreServices(services);
+
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddApiVersioning(options =>
@@ -83,6 +126,8 @@ namespace Northstar.WS
             }
             //app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+
             app.UseCors("AllowMyApp");
 
             app.UseRouting();
@@ -95,6 +140,18 @@ namespace Northstar.WS
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static void AddIdentityCoreServices(IServiceCollection services)
+        {
+            var builder = services.AddIdentityCore<UserDTO>();
+            builder = new IdentityBuilder(builder.UserType,
+                typeof(UserRoleDTO),
+                builder.Services);
+            builder.AddRoles<UserRoleDTO>()
+                .AddEntityFrameworkStores<AvimoreDBContext>()
+                .AddDefaultTokenProviders()
+                .AddSignInManager<SignInManager<UserDTO>>();
         }
     }
 }
